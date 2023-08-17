@@ -5,13 +5,14 @@
   import MyMenu from '@/components/MyMenu.vue'
 
   import  useAuth  from "@/hooks/useAuth";
+  import  useTickets  from "@/hooks/useTickets";
 
-  const { checkAuth, user } = useAuth()
+  const { checkAuth } = useAuth()
+  const { getTickets } = useTickets()
 
-  onMounted(()=>{
-    console.log(user.value);
+  onMounted(() => {
     checkAuth()
-    console.log(user.value);
+    getTickets()
   })
 </script>
 
