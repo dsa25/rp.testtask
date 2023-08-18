@@ -21,39 +21,38 @@ export default function useAuth() {
     }
 
     const login = async (data) => {
-        let userLS = {}
-        if(localStorage?.user){
-            userLS = JSON.parse(localStorage?.user)
-            console.log({ userLS })
-            userLS.login = data.login
-            localStorage.user = JSON.stringify(userLS)
+      let userLS = {}
+      if (localStorage?.user) {
+        userLS = JSON.parse(localStorage?.user)
+        console.log({ userLS })
+        userLS.login = data.login
+        localStorage.user = JSON.stringify(userLS)
+      } else {
+        userLS = {
+          login: data.login,
+          email: "ivanov2001@mail.ru",
+          name: "Ivan",
+          surname: "Ivanov",
+          dob: "2001-01-01",
+          city: 28
         }
-        else{
-            userLS = {
-              login: data.login,
-              email: "ivanov2001@mail.ru",
-              name: "Ivan",
-              surname: "Ivanov",
-              dob: "2001-01-01",
-              city: 28
-            }
-            localStorage.user = JSON.stringify(userLS)
-        }
-        user = userLS
-        isAuth.value = true
-        console.log("login user: ", user)
-        router.push({name: 'main'})
-        document.cookie = "sessionId=id; max-age=333"
+        localStorage.user = JSON.stringify(userLS)
+      }
+      user = userLS
+      isAuth.value = true
+      console.log("login user: ", user)
+      router.push({ name: "main" })
+      document.cookie = "sessionId=id; max-age=333"
     }
-    
-    const logout = () => {
-        isAuth.value = false
-        router.push({name: 'login'})
-        document.cookie = "sessionId=''; max-age=-1"
-     }
 
-    const updateUser = () => {
-        localStorage.user = JSON.stringify(user)
+    const logout = () => {
+      isAuth.value = false
+      router.push({ name: "login" })
+      document.cookie = "sessionId=''; max-age=-1"
+    }
+
+    const updateUser = (data) => {
+      localStorage.user = JSON.stringify(data)
     }
     
     return { isAuth, login, logout, checkAuth, updateUser, user }

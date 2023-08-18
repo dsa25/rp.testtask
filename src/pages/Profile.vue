@@ -1,9 +1,23 @@
 <script setup>
-    import useAuth from "@/hooks/useAuth";
+    import { ref, reactive, watch } from "vue"
+    import useAuth from "@/hooks/useAuth"
+
     const { user, updateUser } = useAuth()
-    const setCity = (e) => {
-        user.city = +e
+    const formUser = reactive(user)
+    const btnDisable = ref(true)
+    const saveUser = () => {
+       updateUser(formUser)
+       btnDisable.value = true
     }
+    const setCity = (e) => {
+        formUser.city = +e
+    }
+    watch([formUser], () => {
+        if(btnDisable.value) {
+            btnDisable.value = false
+            console.log('not disabled..');
+        }
+    });
     const  listCities = [
         {value: 1, name: "Saint Petersburg"},
         {value: 2, name: "Novosibirsk"},
@@ -44,39 +58,38 @@
             <h1>Profile page</h1>
             <b class="text-blue-500">{{user?.login}}</b>
         </div>
-
         <form class="formUser max-w-md" @submit.prevent>
             <div class="flex items-center justify-between mb-3">
                 <label for="name">Имя: </label>
                 <div class="w-2/3">
-                    <MyInput id="name" v-model="user.name"/>
+                    <MyInput id="name" v-model="formUser.name"/>
                 </div>   
             </div>
             <div class="flex items-center justify-between mb-3">
                 <label for="surname">Фамилия: </label>
                 <div class="w-2/3">
-                    <MyInput id="surname" v-model="user.surname"/>
+                    <MyInput id="surname" v-model="formUser.surname"/>
                 </div>   
             </div>
             <div class="flex items-center justify-between mb-3">
                 <label for="email">Email: </label>
                 <div class="w-2/3">
-                    <MyInput id="email" v-model="user.email"/>
+                    <MyInput id="email" v-model="formUser.email"/>
                 </div>   
             </div>
             <div class="flex items-center justify-between mb-3">
                 <label for="dob">Дата рождения: </label>
                 <div class="w-2/3">
-                    <MyInput type="date" id="dob" v-model="user.dob" />
+                    <MyInput type="date" id="dob" v-model="formUser.dob" />
                 </div>   
             </div>
             <div class="flex items-center justify-between mb-3">
-                <label for="city">Дата рождения: </label>
+                <label for="city">Город: </label>
                 <div class="w-2/3">
-                    <MySelect :model-value="user.city" @update:model-value="setCity" :options="listCities" />
+                    <MySelect :model-value="formUser.city" @update:model-value="setCity" :options="listCities" />
                 </div>   
             </div>
-            <MyBtn @click="updateUser" class="btn__success block ml-auto">save</MyBtn>
+            <MyBtn @click="saveUser" class="btn__success block ml-auto" :disabled="btnDisable">save</MyBtn>
         </form>
         </div>
     </section>

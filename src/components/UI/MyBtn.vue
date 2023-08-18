@@ -16,6 +16,9 @@ export default {
   height: var(--heightField);
   text-align: center;
 }
+.btn:disabled, .btn:disabled:hover {
+  background: #d1d1d1;
+}
 .btn_min {
   height: 25px;
   padding: 0 12px;

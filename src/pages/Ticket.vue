@@ -61,6 +61,6 @@
   @apply text-gray-600;
 }
 .tbl tr:nth-child(2n + 1) {
-  @apply bg-lime-50;
+ background-color: #f7fff7a1;
 }
 </style>
