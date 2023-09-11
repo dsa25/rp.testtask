@@ -4,6 +4,7 @@
 Stack:
 - vue 3 (Composition API)
 - vue-router
+- pinia
 - tailwindcss
 - vite
 </br>
