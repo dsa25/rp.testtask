@@ -1,17 +1,17 @@
+import { defineStore } from "pinia"
 import { useRouter } from "vue-router"
-import { ref, reactive } from "vue"
+import { ref } from "vue"
 
-let isAuth = ref(false)
-let user = reactive({})
-
-export default function useAuth() {
+export const useAuthStore = defineStore("authStore", () => {
+  const isAuth = ref(false)
+  const user = ref({})
   const router = useRouter()
 
   const checkAuth = () => {
     let myCookie = document.cookie.indexOf("sessionId")
     console.log("sessionId: ", myCookie)
     if (localStorage?.user) {
-      user = JSON.parse(localStorage?.user)
+      user.value = JSON.parse(localStorage?.user)
     }
     console.log("uv123: ", user)
     if (myCookie > -1 && Object.keys(user).length) {
@@ -37,7 +37,7 @@ export default function useAuth() {
       }
       localStorage.user = JSON.stringify(userLS)
     }
-    user = userLS
+    user.value = userLS
     isAuth.value = true
     console.log("login user: ", user)
     router.push({ name: "main" })
@@ -55,4 +55,4 @@ export default function useAuth() {
   }
 
   return { isAuth, login, logout, checkAuth, updateUser, user }
-}
+})

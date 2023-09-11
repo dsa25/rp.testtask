@@ -1,6 +1,6 @@
-import { reactive } from "vue"
+import { ref } from "vue"
 
-let tickets = reactive([
+let tickets = ref([
   {
     id: 1,
     header: "header one",
@@ -21,16 +21,17 @@ let tickets = reactive([
 export default function useTickets() {
   const getTickets = () => {
     if (localStorage?.tickets) {
-      tickets = JSON.parse(localStorage?.tickets)
+      tickets.value = JSON.parse(localStorage?.tickets)
+      console.log({ tickets })
     }
   }
   const addTicket = (data) => {
-    tickets.push({
-      id: tickets.length + 1,
+    tickets.value.push({
+      id: tickets.value.length + 1,
       header: data.header,
       text: data.text
     })
-    localStorage.tickets = JSON.stringify(tickets)
+    localStorage.tickets = JSON.stringify(tickets.value)
   }
   return { tickets, getTickets, addTicket }
 }

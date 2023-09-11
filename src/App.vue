@@ -1,23 +1,30 @@
 <script setup>
-  import { onMounted } from "vue"
+import { onMounted } from "vue"
 
-  import MyLogo from '@/components/MyLogo.vue'
-  import MyMenu from '@/components/MyMenu.vue'
+import MyLogo from "@/components/MyLogo.vue"
+import MyMenu from "@/components/MyMenu.vue"
 
-  import  useAuth  from "@/hooks/useAuth";
-  import  useTickets  from "@/hooks/useTickets";
+//  composable ...
+// import useAuth from "@/hooks/useAuth"
+// import useTickets from "@/hooks/useTickets"
+// const { checkAuth } = useAuth()
+// const { getTickets, tickets } = useTickets()
 
-  const { checkAuth } = useAuth()
-  const { getTickets } = useTickets()
+import { useTicketStore } from "@/stores/TicketStore.js"
+const ticketStore = useTicketStore()
 
-  onMounted(() => {
-    checkAuth()
-    getTickets()
-  })
+import { useAuthStore } from "@/stores/AuthStore.js"
+const authStore = useAuthStore()
+
+onMounted(() => {
+  authStore.checkAuth()
+  ticketStore.getTickets()
+  // checkAuth()
+  // getTickets()
+})
 </script>
 
 <template>
-  
   <header>
     <div class="row">
       <MyLogo />
@@ -32,5 +39,4 @@
       <div class="copyright">© footer</div>
     </div>
   </footer>
-
 </template>
