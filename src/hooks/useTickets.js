@@ -6,16 +6,16 @@ let tickets = reactive([
     header: "header one",
     text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus, veniam."
   },
-  {
-    id: 2,
-    header: "header two",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, facilis."
-  },
-  {
-    id: 3,
-    header: "header three",
-    text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto iusto numquam aspernatur?"
-  }
+  // {
+  //   id: 2,
+  //   header: "header two",
+  //   text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, facilis."
+  // },
+  // {
+  //   id: 3,
+  //   header: "header three",
+  //   text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto iusto numquam aspernatur?"
+  // }
 ])
 
 export default function useTickets() {
